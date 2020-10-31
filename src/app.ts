@@ -8,11 +8,11 @@ class App {
   constructor() {
     this.express = express();
 
-    this.middlewared();
+    this.middlewares();
     this.routes();
   }
 
-  private middlewared(): void {
+  private middlewares(): void {
     this.express.use(express.json());
   }
 
