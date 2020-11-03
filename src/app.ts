@@ -1,4 +1,7 @@
 import 'reflect-metadata';
+import 'dotenv/config.js';
+import './database';
+
 import express, { Express } from 'express';
 
 import routes from './routes';
@@ -10,6 +13,8 @@ class App {
 
     this.middlewares();
     this.routes();
+    console.log(process.env.NODE_ENV);
+
   }
 
   private middlewares(): void {
