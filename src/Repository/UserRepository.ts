@@ -4,16 +4,12 @@ import User from '../entities/User';
 
 @EntityRepository(User)
 class UserRepository extends Repository<User> {
-  public async store(data: Omit<User, 'id'| 'created_at' | 'updated_at'>): Promise<void> {
-    console.log(data)
+  public async store(data: Omit<User, 'id'| 'created_at' | 'updated_at'>): Promise<User> {
+    const user = this.create(data)
 
-    console.log(await this.find());
+    await this.save(user);
 
-    console.log('hello1')
-
-
-
-    return;
+    return user;
   }
 }
 

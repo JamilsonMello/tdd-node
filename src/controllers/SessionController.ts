@@ -18,4 +18,4 @@ class SessionController {
   }
 }
 
-export default SessionController;
+export default new SessionController();
