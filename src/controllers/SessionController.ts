@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm'
+import { getCustomRepository } from 'typeorm';
 
-import UserRepository from '../Repository/UserRepository'
+import UserRepository from '../Repository/UserRepository';
 
 class SessionController {
   public async store(request: Request, response: Response): Promise<Response> {
@@ -14,7 +14,7 @@ class SessionController {
       return response.status(401).json({ error: 'User not found' });
     }
 
-    return response.status(200);
+    return response.status(200).json(user);
   }
 }
 
