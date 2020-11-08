@@ -1,11 +1,11 @@
 import request from 'supertest';
 import { getCustomRepository } from 'typeorm';
 
-import connection from '@/database'
+import connection from '@/database';
 import App from '@/app';
 import UserRepository from '@/Repository/UserRepository';
 
-describe('Authentication', () => {
+describe('Register a new user', () => {
   beforeAll(async () => {
     await connection.create();
   });
@@ -18,25 +18,29 @@ describe('Authentication', () => {
     await connection.close();
   });
 
-  it('Should be able authenticate with valid credentials', async () => {
+  it('Should be able create a new user', async () => {
     const userRepository = getCustomRepository(UserRepository);
 
-    await userRepository.store({
+    await request(App).post('/users').send({
       name: 'user',
       email: 'user@example.com',
       password: 'password',
     });
 
-    const response = await request(App).post('/sessions').send({
+    const user = await userRepository.findOne({ email: 'user@example.com' });
+
+    expect(user).toHaveProperty('id');
+  });
+
+  it('Should not be able create a new user if user already exists', async () => {
+    await request(App).post('/users').send({
+      name: 'user',
       email: 'user@example.com',
       password: 'password',
     });
 
-    expect(response.status).toBe(200);
-  });
-
-  it('Should not be able create a session to non-existing user', async () => {
-    const response = await request(App).post('/sessions').send({
+    const response = await request(App).post('/users').send({
+      name: 'user',
       email: 'user@example.com',
       password: 'password',
     });

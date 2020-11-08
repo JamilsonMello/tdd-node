@@ -7,8 +7,7 @@
     "dev": "NODE_ENV=development ts-node-dev --respawn --transpile-only --ignore-watch node_module --clear --inspect -- ./src/server.ts",
     "build": "tsc",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
-    "pretest": "NODE_ENV=test",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "dependencies": {
     "dotenv": "^8.2.0",

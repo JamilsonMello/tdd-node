@@ -1,6 +1,6 @@
 import 'reflect-metadata';
-import 'dotenv/config.js';
-import './database';
+import './config/config-environment';
+import connection from './database'
 
 import express, { Express } from 'express';
 
@@ -9,12 +9,14 @@ import routes from './routes';
 class App {
   public readonly express: Express;
   constructor() {
+    this.connection()
     this.express = express();
-
     this.middlewares();
     this.routes();
-    console.log(process.env.NODE_ENV);
+  }
 
+  private async connection(): Promise<void> {
+    connection.create()
   }
 
   private middlewares(): void {
